@@ -6,12 +6,12 @@ if [[ $(id -u) -eq 0 ]]; then
     exit 1
 fi
 
-GOPATH="$HOME/.go"
-GOROOT="/usr/local/go"
 VERSION=${VERSION:-1.17.1}
 # URL=${URL:-"https://golang.org/dl"}
 URL=${URL:-"https://gomirrors.org/dl/go"}
 FILE="go${VERSION}.linux-amd64.tar.gz"
+GOPATH=${GOPATH:-"$HOME/.go"}
+GOROOT="/usr/local/go"
 
 wget -c ${URL}/${FILE}
 # HASH=`shasum -a 256 ${FILE}`
@@ -23,7 +23,7 @@ setPath() {
     if ! grep -q 'GOPATH' $HOME/$1 ; then
         echo -e "export PATH=\$PATH:${GOROOT}/bin:${GOPATH}/bin" >> $HOME/$1
         echo -e "export GOPATH=${GOPATH}" >> $HOME/$1
-        echo -e "Need to execute ${CO}source ~/$1${NC} first."
+        echo -e "Please execute ${CO}source ~/$1${NC} first."
     fi
 }
 
